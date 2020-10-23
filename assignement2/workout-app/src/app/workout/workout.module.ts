@@ -19,6 +19,7 @@ import { WorkoutFormComponent } from './workout-form/workout-form.component';
 import { WorkoutsListComponent } from './workouts-list/workouts-list.component';
 import { WorkoutsResolverService } from './workouts-list/workouts-resolver.service';
 import { BaseWorkoutsComponent } from './base-workouts/base-workouts.component';
+import { MatRippleModule } from '@angular/material/core';
 
 const routes: Routes = [
   {
@@ -58,6 +59,7 @@ const routes: Routes = [
     LayoutModule,
     MatSidenavModule,
     MatIconModule,
+    MatRippleModule,
     MatInputModule,
     MatListModule,
     FlexLayoutModule,
