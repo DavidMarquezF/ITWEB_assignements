@@ -18,21 +18,28 @@ import { WorkoutDetailComponent } from './workout-detail/workout-detail.componen
 import { WorkoutFormComponent } from './workout-form/workout-form.component';
 import { WorkoutsListComponent } from './workouts-list/workouts-list.component';
 import { WorkoutsResolverService } from './workouts-list/workouts-resolver.service';
+import { BaseWorkoutsComponent } from './base-workouts/base-workouts.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: WorkoutsListComponent,
-    resolve: {
-      workouts: WorkoutsResolverService,
-    },
-  },
-  {
-    path:":workoutId",
-    component: WorkoutDetailComponent,
-    resolve:{
-      workout: WorkoutDetailResolverService
-    }
+    component: BaseWorkoutsComponent,
+    children: [
+      {
+        path: '',
+        component: WorkoutsListComponent,
+        resolve: {
+          workouts: WorkoutsResolverService,
+        },
+      },
+      {
+        path:":workoutId",
+        component: WorkoutDetailComponent,
+        resolve:{
+          workout: WorkoutDetailResolverService
+        }
+      }
+    ]
   },
   {
     path: '**',
@@ -41,7 +48,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [WorkoutsListComponent, WorkoutDetailComponent, WorkoutFormComponent],
+  declarations: [WorkoutsListComponent, WorkoutDetailComponent, WorkoutFormComponent, BaseWorkoutsComponent],
   imports: [
     RouterModule.forChild(routes), 
     MatTableModule,

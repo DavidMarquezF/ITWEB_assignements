@@ -24,7 +24,7 @@ export class WorkoutsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.workouts = this._activatedRoute.snapshot.data.students;
+    this.workouts = this._activatedRoute.snapshot.data.workouts;
   }
 
   addWorkout(): void {
