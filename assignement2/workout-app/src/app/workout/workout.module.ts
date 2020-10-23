@@ -1,10 +1,23 @@
-import { NgModule } from '@angular/core';
+import { LayoutModule } from '@angular/cdk/layout';
+import {MatTableModule} from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { WorkoutsListComponent } from './workouts-list/workouts-list.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterModule, Routes } from '@angular/router';
-import { WorkoutsResolverService } from './workouts-list/workouts-resolver.service';
-import { WorkoutDetailComponent } from './workout-detail/workout-detail.component';
 import { WorkoutDetailResolverService } from './workout-detail/workout-detail-resolver.service';
+import { WorkoutDetailComponent } from './workout-detail/workout-detail.component';
+import { WorkoutFormComponent } from './workout-form/workout-form.component';
+import { WorkoutsListComponent } from './workouts-list/workouts-list.component';
+import { WorkoutsResolverService } from './workouts-list/workouts-resolver.service';
 
 const routes: Routes = [
   {
@@ -28,8 +41,22 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [WorkoutsListComponent, WorkoutDetailComponent],
-  imports: [RouterModule.forChild(routes), CommonModule],
+  declarations: [WorkoutsListComponent, WorkoutDetailComponent, WorkoutFormComponent],
+  imports: [
+    RouterModule.forChild(routes), 
+    MatTableModule,
+    MatToolbarModule,
+    MatButtonModule,
+    HttpClientModule,
+    LayoutModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    FlexLayoutModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    CommonModule],
   providers: [WorkoutsResolverService, WorkoutDetailResolverService],
 })
 export class WorkoutModule {}
