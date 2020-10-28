@@ -1,3 +1,2 @@
-# ITTWEB_assignment_1
+# ITTWEB_assignment_2
 
-https://safe-spire-81142.herokuapp.com/
