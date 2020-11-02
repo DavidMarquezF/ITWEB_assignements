@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {Jwt} from "./jwt";
+import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  // TODO: Add real API url
   private _apiUrl: string = "http://localhost:3000/api/auth";
   private _isLoggedIn: boolean = false;
 
@@ -18,10 +21,11 @@ export class AuthService {
   }
 
   public login(email: string, pass: string): Observable<any>{
-    const result = this._httpClient.post(this._apiUrl + '/login', {email: email, password: pass});
-    this._isLoggedIn = true;
-    // TODO: look for a way to store JWT token
-    return result;
+    return this._httpClient.post<Jwt>(this._apiUrl + '/login', {email: email, password: pass})
+      .pipe(tap(token => {
+        this._authToken = token.token;
+        this._isLoggedIn = true;
+      }));
   }
 
   public get authToken(): string{
