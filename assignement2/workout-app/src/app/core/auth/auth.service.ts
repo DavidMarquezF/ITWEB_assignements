@@ -28,6 +28,11 @@ export class AuthService {
       }));
   }
 
+  public logout(): void {
+    this._authToken = null;
+    this._isLoggedIn = false;
+  }
+
   public get authToken(): string{
     return this._authToken;
   }
