@@ -1,44 +1,89 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import {Jwt} from "./jwt";
-import {tap} from "rxjs/operators";
+import {User} from "./user";
 
 @Injectable({
   providedIn: 'root'
 })
+// Auth service inspired by Poul's slides from 9th lecture
 export class AuthService {
   // TODO: Add real API url
-  private _apiUrl: string = "http://localhost:3000/api/auth";
-  private _isLoggedIn: boolean = false;
-
-  private _authToken: string;
+  private _apiBaseUrl: string = "http://localhost:3000/api/auth";
 
   constructor(private _httpClient: HttpClient) { }
 
-  public register(email: string, pass: string): Observable<any> {
-    return this._httpClient.post(this._apiUrl + '/register', { email: email, password: pass });
+  public register(user: User): void {
+    const url = `${this._apiBaseUrl}/register`;
+    this._httpClient.post<Jwt>(url, user).subscribe(data => {
+      this.saveToken(data.token);
+      return true;
+    },
+
+    (err: HttpErrorResponse) => {
+      if (err.error instanceof Error) {
+        // A client-side or network error occurred. Handle it accordingly.
+        console.log('An error occurred:', err.error.message);
+      } else {
+        // The backend returned an unsuccessful response code.
+        // The response body may contain clues as to what went wrong,
+        console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+      }
+      return false;
+    });
   }
 
-  public login(email: string, pass: string): Observable<any>{
-    return this._httpClient.post<Jwt>(this._apiUrl + '/login', {email: email, password: pass})
-      .pipe(tap(token => {
-        this._authToken = token.token;
-        this._isLoggedIn = true;
-      }));
+  public login(user: User): void {
+    const url = `${this._apiBaseUrl}/login`;
+    this._httpClient.post<Jwt>(url, user).subscribe(data => {
+      this.saveToken(data.token);
+      return true;
+    },
+
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.log('An error occurred:', err.error.message);
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+        }
+        return false;
+      });
   }
 
   public logout(): void {
-    this._authToken = null;
-    this._isLoggedIn = false;
+    this.deleteToken();
   }
 
-  public get authToken(): string{
-    return this._authToken;
+  public get authToken(): string {
+    return this.getToken();
   }
 
-  public get isLoggedIn(): boolean{
-    return this._isLoggedIn;
+  public get isLoggedIn(): boolean {
+    const token = this.getToken();
+    if (token) {
+      const payload = JSON.parse(window.atob(token.split('.')[1]));
+      return payload.exp > Date.now() / 1000;
+    } else {
+      return false;
+    }
   }
 
+  private saveToken(token: string): void {
+    window.localStorage['jwt'] = token;
+  }
+
+  private getToken(): string {
+    if (window.localStorage['jwt']) {
+      return window.localStorage['jwt'];
+    } else {
+      return '';
+    }
+  }
+
+  private deleteToken(): void {
+    window.localStorage['jwt'] = '';
+  }
 }
