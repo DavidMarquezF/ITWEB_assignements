@@ -1,21 +1,18 @@
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Jwt} from "./jwt";
-import {User} from "./user";
+import {Jwt} from "./jwt.model";
+import {User} from "./user.model";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 // Auth service inspired by Poul's slides from 9th lecture
 export class AuthService {
-  // TODO: Add real API url
-  private _apiBaseUrl: string = "http://localhost:3000/api/auth";
-
   constructor(private _httpClient: HttpClient) { }
 
   public register(user: User): void {
-    const url = `${this._apiBaseUrl}/register`;
-    this._httpClient.post<Jwt>(url, user).subscribe(data => {
+    this._httpClient.post<Jwt>(`${environment.appUrl}auth/register`, user).subscribe(data => {
       this.saveToken(data.token);
       return true;
     },
@@ -34,8 +31,7 @@ export class AuthService {
   }
 
   public login(user: User): void {
-    const url = `${this._apiBaseUrl}/login`;
-    this._httpClient.post<Jwt>(url, user).subscribe(data => {
+    this._httpClient.post<Jwt>(`${environment.appUrl}auth/login`, user).subscribe(data => {
       this.saveToken(data.token);
       return true;
     },
