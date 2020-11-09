@@ -11,6 +11,6 @@ export class WorkoutsResolverService implements Resolve<Workout[]>{
   constructor(private _httpClient: HttpClient) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Workout[] | Observable<Workout[]> | Promise<Workout[]> {
-    return this._httpClient.get<Workout[]>(`${environment.appUrl}/workouts`);
+    return this._httpClient.get<Workout[]>(`${environment.appUrl}workouts`);
   }
 }
