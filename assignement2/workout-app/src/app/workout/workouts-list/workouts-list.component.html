@@ -1,22 +1,52 @@
-<table mat-table [dataSource]="workouts" class="mat-elevation-z8" fxFlex fxFlexFill>
-    <ng-container matColumnDef="num">
-      <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
-      <mat-cell *matCellDef="let workout">{{workout._id}}</mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let workout">{{workout.name}}</mat-cell>
-    </ng-container>
-  
-    <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-      <mat-cell *matCellDef="let workout">{{workout.description}}</mat-cell>
-    </ng-container>
-  
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" class="workout-row" matRipple [routerLink]="row._id"></mat-row>
-  </table>
-  <button mat-fab class="add-button" (click)="addWorkout()">
-    <mat-icon>add</mat-icon>
-  </button>
+<div class="box">
+  <!-- Header -->
+  <div class="row header">
+    <mat-toolbar color="primary">
+      <a routerLink="/">
+        <span>FITPUG</span>
+      </a>
+      <span class="spacer"></span>
+      <a mat-button routerLink="/auth/register">
+        <mat-icon>person_add</mat-icon>
+        Register
+      </a>
+      <a mat-button routerLink="/auth/login">
+        <mat-icon>login</mat-icon>
+        Login
+      </a>
+      <a mat-button routerLink="/workouts">
+        <mat-icon>emoji_events</mat-icon>
+        Workouts
+      </a>
+    </mat-toolbar>
+  </div>
+  <!-- Content -->
+  <div class="row content">
+    <table mat-table [dataSource]="workouts" class="mat-elevation-z8" fxFlex fxFlexFill>
+      <ng-container matColumnDef="num">
+        <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+        <mat-cell *matCellDef="let workout">{{workout._id}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let workout">{{workout.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+        <mat-cell *matCellDef="let workout">{{workout.description}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" class="workout-row" matRipple [routerLink]="row._id"></mat-row>
+    </table>
+    <button mat-fab class="add-button" (click)="addWorkout()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <!-- Footer -->
+  <div class="row footer">
+    <p>© Webpage by the Internationals 2020</p>
+  </div>
+</div>

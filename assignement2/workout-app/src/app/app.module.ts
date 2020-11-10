@@ -11,14 +11,13 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatCardModule} from "@angular/material/card";
-import { HeaderComponent } from './navigation/header/header.component';
-import { FooterComponent } from './navigation/footer/footer.component';
+import { LandingPageComponent } from './navigation/landing-page/landing-page.component';
+import {FlexModule} from "@angular/flex-layout";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +28,8 @@ import { FooterComponent } from './navigation/footer/footer.component';
     MatIconModule,
     MatButtonModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    FlexModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

@@ -1,0 +1,49 @@
+<div class="box">
+  <!-- Header -->
+  <div class="row header">
+    <mat-toolbar color="primary">
+      <a routerLink="/">
+        <span>FITPUG</span>
+      </a>
+      <span class="spacer"></span>
+      <a mat-button routerLink="/auth/register">
+        <mat-icon>person_add</mat-icon>
+        Register
+      </a>
+      <a mat-button routerLink="/auth/login">
+        <mat-icon>login</mat-icon>
+        Login
+      </a>
+      <a mat-button routerLink="/workouts">
+        <mat-icon>emoji_events</mat-icon>
+        Workouts
+      </a>
+    </mat-toolbar>
+  </div>
+  <!-- Content -->
+  <div class="row content">
+    <mat-card class="content-container">
+      <p class="text">LATEST WORKOUTS</p>
+
+      <div class="landing-page-element" fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+        <mat-card class="workout-card" *ngFor="let workout of workouts">
+          <mat-card-header>
+            <mat-card-title>{{workout.name}}</mat-card-title>
+            <mat-card-subtitle>{{workout.description}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+<!--              names of the exercises will be displayed here -->
+            <li *ngFor="let exercise of workout.exercises">{{exercise.name}}</li>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card>
+  </div>
+  <!-- Footer -->
+  <div class="row footer">
+    <p>© Webpage by the Internationals 2020</p>
+  </div>
+</div>
+
+
+
