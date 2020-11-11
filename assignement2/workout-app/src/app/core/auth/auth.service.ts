@@ -67,6 +67,17 @@ export class AuthService {
     }
   }
 
+  public currentUserId(): string {
+    if (this.isLoggedIn) {
+      const token = this.getToken();
+      const payload = JSON.parse(window.atob(token.split('.')[1]));
+      console.log(payload);
+      return payload._id;
+    } else {
+      return;
+    }
+  }
+
   private saveToken(token: string): void {
     window.localStorage['jwt'] = token;
   }

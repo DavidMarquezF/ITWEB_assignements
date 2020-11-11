@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkoutDetailService } from './workout-detail.service';
+import {ActivatedRoute} from "@angular/router";
+import {Workout} from "../workout.model";
+import {AuthService} from "../../core/auth/auth.service";
 
 @Component({
   selector: 'app-workout-detail',
@@ -10,10 +13,18 @@ import { WorkoutDetailService } from './workout-detail.service';
   ]
 })
 export class WorkoutDetailComponent implements OnInit {
+  workout: Workout;
+  displayedColumns = ['name', 'desc', 'sets', 'reps'];
 
-  constructor(private _workoutService: WorkoutDetailService) { }
+  constructor(private _authService: AuthService, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.workout = this._activatedRoute.snapshot.data.workout;
+    console.log(this.workout);
+  }
+
+  checkUserPermissions(): boolean {
+    return this.workout.userId === this._authService.currentUserId();
   }
 
 }

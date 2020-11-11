@@ -20,6 +20,9 @@ import { WorkoutsListComponent } from './workouts-list/workouts-list.component';
 import { WorkoutsResolverService } from './workouts-list/workouts-resolver.service';
 import { BaseWorkoutsComponent } from './base-workouts/base-workouts.component';
 import { MatRippleModule } from '@angular/material/core';
+import {MatCardModule} from "@angular/material/card";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "../core/interceptors/auth.interceptor";
 
 const routes: Routes = [
   {
@@ -50,22 +53,28 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [WorkoutsListComponent, WorkoutDetailComponent, WorkoutFormComponent, BaseWorkoutsComponent],
-  imports: [
-    RouterModule.forChild(routes), 
-    MatTableModule,
-    MatToolbarModule,
-    MatButtonModule,
-    HttpClientModule,
-    LayoutModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatRippleModule,
-    MatInputModule,
-    MatListModule,
-    FlexLayoutModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    CommonModule],
-  providers: [WorkoutsResolverService, WorkoutDetailResolverService],
+    imports: [
+        RouterModule.forChild(routes),
+        MatTableModule,
+        MatToolbarModule,
+        MatButtonModule,
+        HttpClientModule,
+        LayoutModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatRippleModule,
+        MatInputModule,
+        MatListModule,
+        FlexLayoutModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MatCardModule
+    ],
+  providers: [
+    WorkoutsResolverService,
+    WorkoutDetailResolverService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    ],
 })
 export class WorkoutModule {}
