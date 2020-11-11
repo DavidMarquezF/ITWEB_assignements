@@ -1,63 +1,21 @@
-<div class="box">
-  <!-- Header -->
-  <div class="row header">
-    <mat-toolbar color="primary">
-      <a routerLink="/">
-        <span>FITPUG</span>
+<mat-card class="content-container" fxLayoutAlign="center" fxLayout="column">
+  <p class="text">TOP WORKOUTS</p>
+
+  <div class="landing-page-element"  fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="32px grid">
+    <div fxFlex *ngFor="let workout of workouts">
+      <a style="text-decoration: none" routerLink="/workouts/{{workout._id}}">
+        <mat-card class="workout-card">
+          <mat-card-header>
+            <div mat-card-avatar class="card-header-image"></div>
+            <mat-card-title>{{workout.name}}</mat-card-title>
+            <mat-card-subtitle>Created by: {{workout.userId}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <span>{{workout.description}}</span>
+          </mat-card-content>
+        </mat-card>
       </a>
-      <span class="spacer"></span>
-      <div class="logged-out" *ngIf="!checkLoggedIn()">
-        <a mat-button routerLink="/auth/register">
-          <mat-icon>person_add</mat-icon>
-          Register
-        </a>
-        <a mat-button routerLink="/auth/login" (click)="login()">
-          <mat-icon>login</mat-icon>
-          Login
-        </a>
-      </div>
-      <a mat-button routerLink="/workouts">
-        <mat-icon>emoji_events</mat-icon>
-        Workouts
-      </a>
-      <div class="logged-in" *ngIf="checkLoggedIn()">
-        <a mat-button routerLink="/" (click)="logout()">
-          <mat-icon>exit_to_app</mat-icon>
-          Logout
-        </a>
-      </div>
-    </mat-toolbar>
+    </div>
+
   </div>
-  <!-- Content -->
-  <div class="row content">
-    <mat-card class="content-container" fxLayoutAlign="center" fxLayout="column">
-      <p class="text">TOP WORKOUTS</p>
-
-      <div class="landing-page-element"  fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="32px grid">
-        <div fxFlex *ngFor="let workout of workouts">
-          <a style="text-decoration: none" routerLink="/workouts/{{workout._id}}">
-            <mat-card class="workout-card">
-              <mat-card-header>
-                <div mat-card-avatar class="card-header-image"></div>
-                <mat-card-title>{{workout.name}}</mat-card-title>
-                <mat-card-subtitle>Created by: {{workout.userId}}</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <!--              names of the exercises will be displayed here -->
-                <span>{{workout.description}}</span>
-              </mat-card-content>
-            </mat-card>
-          </a>
-        </div>
-
-      </div>
-    </mat-card>
-  </div>
-  <!-- Footer -->
-  <div class="row footer">
-    <p>© Webpage by the Internationals 2020</p>
-  </div>
-</div>
-
-
-
+</mat-card>

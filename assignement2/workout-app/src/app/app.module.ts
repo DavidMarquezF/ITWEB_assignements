@@ -13,11 +13,15 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatCardModule} from "@angular/material/card";
 import { LandingPageComponent } from './navigation/landing-page/landing-page.component';
 import {FlexModule} from "@angular/flex-layout";
+import { HeaderComponent } from './navigation/header/header.component';
+import { FooterComponent } from './navigation/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

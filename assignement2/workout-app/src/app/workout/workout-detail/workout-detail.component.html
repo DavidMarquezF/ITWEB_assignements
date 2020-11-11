@@ -1,74 +1,36 @@
-<div class="box">
-  <!-- Header -->
-  <div class="row header">
-    <mat-toolbar color="primary">
-      <a routerLink="/">
-        <span>FITPUG</span>
-      </a>
-      <span class="spacer"></span>
-      <div class="logged-out">
-        <a mat-button routerLink="/auth/register">
-          <mat-icon>person_add</mat-icon>
-          Register
-        </a>
-        <a mat-button routerLink="/auth/login">
-          <mat-icon>login</mat-icon>
-          Login
-        </a>
-      </div>
-      <a mat-button routerLink="/workouts">
-        <mat-icon>emoji_events</mat-icon>
-        Workouts
-      </a>
-      <div class="logged-in">
-        <a mat-button routerLink="/">
-          <mat-icon>emoji_events</mat-icon>
-          Logout
-        </a>
-      </div>
-    </mat-toolbar>
-  </div>
-  <!-- Content -->
-  <div class="row content">
-    <mat-card class="content-container">
-      <mat-card-header>
-        <mat-card-title>{{workout.name}}</mat-card-title>
-        <mat-card-subtitle>{{workout.userId}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <table mat-table [dataSource]="workout.exercises" class="mat-elevation-z8" fxFlex fxFlexFill>
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-            <mat-cell *matCellDef="let e">{{e.name}}</mat-cell>
-          </ng-container>
+<mat-card class="content-container">
+  <mat-card-header>
+    <mat-card-title>{{workout.name}}</mat-card-title>
+    <mat-card-subtitle>{{workout.userId}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="workout.exercises" class="mat-elevation-z8" fxFlex fxFlexFill>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let e">{{e.name}}</mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="desc">
-            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-            <mat-cell *matCellDef="let e">{{e.description}}</mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="desc">
+        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+        <mat-cell *matCellDef="let e">{{e.description}}</mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="sets">
-            <mat-header-cell *matHeaderCellDef>Set(s)</mat-header-cell>
-            <mat-cell *matCellDef="let e">{{e.sets}}</mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="sets">
+        <mat-header-cell *matHeaderCellDef>Set(s)</mat-header-cell>
+        <mat-cell *matCellDef="let e">{{e.sets}}</mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="reps">
-            <mat-header-cell *matHeaderCellDef>Reps/Time</mat-header-cell>
-            <mat-cell *matCellDef="let e">{{e.duration}} {{e.durationType === "time" ? " sec." : ""}}</mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="reps">
+        <mat-header-cell *matHeaderCellDef>Reps/Time</mat-header-cell>
+        <mat-cell *matCellDef="let e">{{e.duration}} {{e.durationType === "time" ? " sec." : ""}}</mat-cell>
+      </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </table>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>Log</button>
-        <button mat-button *ngIf="checkUserPermissions()">Add exercise</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  <!-- Footer -->
-  <div class="row footer">
-    <p>© Webpage by the Internationals 2020</p>
-  </div>
-</div>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Log</button>
+    <button mat-button *ngIf="checkUserPermissions()">Add exercise</button>
+  </mat-card-actions>
+</mat-card>
