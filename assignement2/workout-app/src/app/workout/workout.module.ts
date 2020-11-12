@@ -54,7 +54,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [WorkoutsListComponent, WorkoutDetailComponent, WorkoutFormComponent, BaseWorkoutsComponent, ExerciseFormComponent],
+  declarations: [WorkoutsListComponent, WorkoutDetailComponent, WorkoutFormComponent, BaseWorkoutsComponent,
+    ExerciseFormComponent],
   imports: [
     RouterModule.forChild(routes),
     MatTableModule,
