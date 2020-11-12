@@ -17,14 +17,6 @@ export class HeaderComponent implements OnInit {
     return this._authService.isLoggedIn;
   }
 
-  // TODO: remove when proper login form is done
-  login() {
-    this._authService.login({
-      email : "onj@example.com",
-      password : "qwerASDF"
-    })
-  }
-
   logout() {
     this._authService.logout();
   }
