@@ -16,6 +16,8 @@ import {FlexModule} from "@angular/flex-layout";
 import { HeaderComponent } from './navigation/header/header.component';
 import { FooterComponent } from './navigation/footer/footer.component';
 import { LoginComponent } from './auth/login/login.component';
+import { MyWorkoutsComponent } from './navigation/my-workouts/my-workouts.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { LoginComponent } from './auth/login/login.component';
     LandingPageComponent,
     HeaderComponent,
     FooterComponent,
+    MyWorkoutsComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { LoginComponent } from './auth/login/login.component';
     MatButtonModule,
     MatGridListModule,
     MatCardModule,
-    FlexModule
+    FlexModule,
+    MatTableModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

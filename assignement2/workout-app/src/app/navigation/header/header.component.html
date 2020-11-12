@@ -18,6 +18,12 @@
     Workouts
   </a>
   <div class="logged-in" *ngIf="checkLoggedIn()">
+    <a mat-button routerLink="/my-workouts">
+      <mat-icon>emoji_events</mat-icon>
+      My Workouts
+    </a>
+  </div>
+  <div class="logged-in" *ngIf="checkLoggedIn()">
     <a mat-button routerLink="/" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       Logout
