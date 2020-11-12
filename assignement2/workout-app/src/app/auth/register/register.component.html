@@ -8,7 +8,7 @@
     <mat-card-header>
     <h1 mat-card-title>Register</h1>
     </mat-card-header>
-    <div mat-card-content>
+    <div mat-card-content id="content">
             <form action="/auth/register" method="POST" fxLayout="column">
                 <mat-label for="email">E-mail address</mat-label>
                 <input matInput type="email" formControlName="email" placeholder="Enter e-mail address" required>
@@ -16,7 +16,7 @@
                 <mat-label for="password">Password</mat-label>
                 <input matInput type="password" formControlName="password" placeholder="Enter password" required>
                 <br>
-                <button mat-button type="submit">Register</button>
+                <button mat-raised-button type="submit">Register</button>
             </form>
     </div>
 </mat-card>
