@@ -15,6 +15,7 @@ import { LandingPageComponent } from './navigation/landing-page/landing-page.com
 import {FlexModule} from "@angular/flex-layout";
 import { HeaderComponent } from './navigation/header/header.component';
 import { FooterComponent } from './navigation/footer/footer.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [

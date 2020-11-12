@@ -1,1 +1,22 @@
-<p>login works!</p>
+<mat-card class="content-container">
+    <!--
+    <div *ngIf="errorMessage" class="alert-danger">
+        Error: &nbsp;
+        {{errorMessage}}
+    </div>
+    -->
+    <div>
+            <form action="/auth/login" method="POST" fxLayout="column">
+                <mat-label for="email">E-mail address</mat-label>
+                <input matInput type="email" formControlName="email" placeholder="Enter e-mail address">
+                <p>We'll never share your e-mail with anyone else.</p>
+                <br>
+                <mat-label for="password">Password</mat-label>
+                <input matInput type="password" formControlName="password" placeholder="Enter password">
+                <br>
+                <button mat-button type="submit">Login</button>
+            </form>
+    </div>
+
+
+</mat-card>
