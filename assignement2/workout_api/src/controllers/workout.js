@@ -1,18 +1,42 @@
 const { Exercise } = require("../models/exercise");
 const Workout = require("../models/workout");
+const WorkoutLog = require("../models/workout_log");
 const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports.getWorkouts  = async function(req,res,next){
     try{
+        let top = req.query.top;
+        let findParams = {};
+        if(!!top){
+            const workoutLogs = await getTopWorkouts(parseInt(top));
+            findParams = {_id: {$in: workoutLogs.map(w => w._id)}};
+        }
+        
         var usersProjection = { 
             exercises: false
         };
-        const userWorkouts = await Workout.find({}, usersProjection).exec();
+        const userWorkouts = await Workout.find(findParams, usersProjection).exec();
         res.send(userWorkouts);    
     }
     catch(err){
         next(err);
     }
+}
+
+async function getTopWorkouts(top){
+        const count = await WorkoutLog.aggregate(
+            [
+                //Group pipeline
+                {$group: { 
+                    _id: "$workoutId", 
+                    count: {$sum: 1}
+                }},
+                //Sorting pipeline
+                {$sort: { count:-1}},
+                //Limit pipeline
+                {$limit: top}
+            ]);
+    return count;    
 }
 
 module.exports.getWorkout = async function(req, res, next){
