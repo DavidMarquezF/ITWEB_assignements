@@ -44,4 +44,13 @@ export class WorkoutDetailComponent implements OnInit {
       )
       .subscribe(res => this.workout = {...res});
   }
+
+  logWorkout() {
+    this._detailService.logWorkout({
+      userId: this._authService.currentUserId(),
+      workoutId: this.workout._id,
+      timestamp: new Date()
+    })
+      .subscribe();
+  }
 }
