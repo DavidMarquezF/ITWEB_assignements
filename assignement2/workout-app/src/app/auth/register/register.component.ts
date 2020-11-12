@@ -23,7 +23,6 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    console.log(this.form.value);
     //this.u = { email : String(this.form.get("email")), password : String(this.form.get("password")) };
     this.authService.register(this.form.value);
   }
