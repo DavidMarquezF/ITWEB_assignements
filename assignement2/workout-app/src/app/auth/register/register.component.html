@@ -1,4 +1,4 @@
-<mat-card class="mat-elevation-z8" fxFlex fxFlexFill>
+<mat-card class="content-container" fxLayoutAlign="center" fxLayout="column" fxFlex="40" fxFlexOffset="30">
     <!--
     <div *ngIf="errorMessage" class="alert-danger">
         Error: &nbsp;
@@ -12,15 +12,13 @@
             <form action="/auth/register" method="POST" fxLayout="column">
                 <mat-label for="email">E-mail address</mat-label>
                 <input matInput type="email" formControlName="email" placeholder="Enter e-mail address" required>
-                <p>We'll never share your e-mail with anyone else.</p>
-                <br>
+                <i>We'll never share your e-mail with anyone else.</i>
                 <mat-label for="password">Password</mat-label>
                 <input matInput type="password" formControlName="password" placeholder="Enter password" required>
                 <br>
                 <button mat-button type="submit">Register</button>
             </form>
     </div>
-
 </mat-card>
 
 
