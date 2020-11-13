@@ -1,12 +1,15 @@
 <table mat-table [dataSource]="workouts" class="mat-elevation-z8" fxFlex fxFlexFill>
+  <!--
   <ng-container matColumnDef="num">
-    <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Num</mat-header-cell>
     <mat-cell *matCellDef="let workout">{{workout._id}}</mat-cell>
   </ng-container>
-
+  -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-    <mat-cell *matCellDef="let workout">{{workout.name}}</mat-cell>
+    <mat-cell *matCellDef="let workout">
+      <mat-icon *ngIf="workout.userId === this._authService.currentUserId()">person</mat-icon>{{workout.name}}
+      </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="description">

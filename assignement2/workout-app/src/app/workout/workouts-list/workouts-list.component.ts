@@ -5,6 +5,7 @@ import { WorkoutsService } from './workouts.service';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, concatMap } from 'rxjs/operators';
 import { WorkoutFormComponent } from '../workout-form/workout-form.component';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-workouts-list',
@@ -14,17 +15,20 @@ import { WorkoutFormComponent } from '../workout-form/workout-form.component';
 })
 export class WorkoutsListComponent implements OnInit {
   workouts: Workout[];
-  displayedColumns = ['num', 'name', 'description'];
+  //userWorkouts: Workout[];
+  displayedColumns = ['name', 'description'];
 
   constructor(
     private _workoutService: WorkoutsService,
     private _activatedRoute: ActivatedRoute,
+    private _authService: AuthService,
     private _dialogRef: MatDialog,
     private _router: Router
   ) {}
 
   ngOnInit(): void {
     this.workouts = this._activatedRoute.snapshot.data.workouts;
+    //this.userWorkouts = this.userWorkouts.filter(workout => workout.userId === this._authService.currentUserId());
   }
 
   addWorkout(): void {
