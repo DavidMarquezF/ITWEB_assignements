@@ -6,7 +6,7 @@
 
   <ng-container matColumnDef="time">
     <mat-header-cell *matHeaderCellDef>Time logged</mat-header-cell>
-    <mat-cell *matCellDef="let log">{{log.timestamp}}</mat-cell>
+    <mat-cell *matCellDef="let log">{{log.timestamp | date: 'medium'}}</mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
