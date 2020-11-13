@@ -25,6 +25,9 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "../core/interceptors/auth.interceptor";
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import {MatSelectModule} from "@angular/material/select";
+import { MyWorkoutsResolverService } from './my-workouts/my-workouts-resolver.service';
+import { MyWorkoutsComponent } from './my-workouts/my-workouts.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
   {
@@ -37,6 +40,11 @@ const routes: Routes = [
         resolve: {
           workouts: WorkoutsResolverService,
         },
+      },
+      {
+        path: 'my-workouts',
+        component: MyWorkoutsComponent,
+        resolve: { workouts: MyWorkoutsResolverService }
       },
       {
         path:":workoutId",
@@ -55,13 +63,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [WorkoutsListComponent, WorkoutDetailComponent, WorkoutFormComponent, BaseWorkoutsComponent,
-    ExerciseFormComponent],
+    ExerciseFormComponent, MyWorkoutsComponent],
   imports: [
     RouterModule.forChild(routes),
     MatTableModule,
     MatToolbarModule,
     MatButtonModule,
-    HttpClientModule,
     LayoutModule,
     MatSidenavModule,
     MatIconModule,
@@ -72,13 +79,14 @@ const routes: Routes = [
     MatDialogModule,
     ReactiveFormsModule,
     CommonModule,
+    MatPaginatorModule,
     MatCardModule,
     MatSelectModule
   ],
   providers: [
     WorkoutsResolverService,
     WorkoutDetailResolverService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    MyWorkoutsResolverService
     ],
 })
 export class WorkoutModule {}

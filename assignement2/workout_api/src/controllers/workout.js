@@ -28,7 +28,7 @@ async function getTopWorkouts(top){
             [
                 //Group pipeline
                 {$group: { 
-                    _id: "$workoutId", 
+                    _id: "$workout", 
                     count: {$sum: 1}
                 }},
                 //Sorting pipeline

@@ -3,7 +3,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports.getWorkoutLogs  = async function(req,res,next){
     try{
-        const userWorkouts = await WorkoutLog.find()
+        const userWorkouts = await WorkoutLog.find({"userId": req.user._id})
         .populate("workout")
         .sort({date: -1})
         .exec();

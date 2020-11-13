@@ -5,5 +5,8 @@ export interface Workout {
   userId: string;
   name: string;
   description: string;
+}
+
+export interface WorkoutDetail extends Workout{
   exercises: Exercise[];
 }

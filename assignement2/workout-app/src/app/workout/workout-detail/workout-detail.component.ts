@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkoutDetailService } from './workout-detail.service';
 import {ActivatedRoute} from "@angular/router";
-import {Workout} from "../workout.model";
+import {Workout, WorkoutDetail} from "../workout.model";
 import {AuthService} from "../../core/auth/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {concatMap, filter} from "rxjs/operators";
@@ -16,7 +16,7 @@ import {ExerciseFormComponent} from "../exercise-form/exercise-form.component";
   ]
 })
 export class WorkoutDetailComponent implements OnInit {
-  workout: Workout;
+  workout: WorkoutDetail;
   // exercises: Exercise[];
   displayedColumns = ['name', 'desc', 'sets', 'reps'];
 

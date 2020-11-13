@@ -1,12 +1,12 @@
 <table mat-table [dataSource]="logs" class="mat-elevation-z8" fxFlex fxFlexFill>
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Workout ID</mat-header-cell>
-    <mat-cell *matCellDef="let log">{{log.workoutId}}</mat-cell>
+    <mat-header-cell *matHeaderCellDef>Workout Name</mat-header-cell>
+    <mat-cell *matCellDef="let log">{{log.workout?.name}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="time">
     <mat-header-cell *matHeaderCellDef>Time logged</mat-header-cell>
-    <mat-cell *matCellDef="let log">{{log.timestamp}}</mat-cell>
+    <mat-cell *matCellDef="let log">{{log.timestamp | date: 'medium'}}</mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

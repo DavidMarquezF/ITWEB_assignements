@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WorkoutLog} from "../../workout/workout-log.model";
+import {WorkoutLog, WorkoutLogDetail} from "../../workout/workout-log.model";
 import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../../core/auth/auth.service";
 
@@ -9,15 +9,13 @@ import {AuthService} from "../../core/auth/auth.service";
   styleUrls: ['./my-workouts.component.scss']
 })
 export class MyWorkoutsComponent implements OnInit {
-  logs: WorkoutLog[];
+  logs: WorkoutLogDetail[];
   displayedColumns = ['name', 'time'];
 
   constructor(private _activatedRoute: ActivatedRoute, private _authService: AuthService) { }
 
   ngOnInit(): void {
     this.logs = this._activatedRoute.snapshot.data.workouts;
-    // Filter logs just to show my workouts
-    this.logs = this.logs.filter(log => log.userId === this._authService.currentUserId());
   }
 
 }
