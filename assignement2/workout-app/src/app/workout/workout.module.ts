@@ -27,6 +27,7 @@ import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import {MatSelectModule} from "@angular/material/select";
 import { MyWorkoutsResolverService } from './my-workouts/my-workouts-resolver.service';
 import { MyWorkoutsComponent } from './my-workouts/my-workouts.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const routes: Routes = [
   {
@@ -78,6 +79,7 @@ const routes: Routes = [
     MatDialogModule,
     ReactiveFormsModule,
     CommonModule,
+    MatPaginatorModule,
     MatCardModule,
     MatSelectModule
   ],
