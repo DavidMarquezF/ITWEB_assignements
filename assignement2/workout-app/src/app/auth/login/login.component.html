@@ -16,7 +16,7 @@
                     <mat-error>*Required field for logging in.</mat-error>
                 </mat-form-field>
                 <br>
-                <button mat-raised-button type="submit">Login</button>
+                <button mat-raised-button type="submit" [disabled]="form.invalid">Login</button>
             </form>
     </div>
 
