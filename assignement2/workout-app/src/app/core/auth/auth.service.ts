@@ -1,56 +1,46 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Jwt} from "./jwt.model";
-import {User} from "./user.model";
-import {environment} from "../../../environments/environment";
+import { Jwt } from './jwt.model';
+import { User } from './user.model';
+import { environment } from '../../../environments/environment';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 // Auth service inspired by Poul's slides from 9th lecture
 export class AuthService {
-  constructor(private _httpClient: HttpClient) { }
-
-  public register(user: User): void {
-    this._httpClient.post<Jwt>(`${environment.appUrl}auth/register`, user).subscribe(data => {
-      this.saveToken(data.token);
-      return true;
-    },
-
-    (err: HttpErrorResponse) => {
-      if (err.error instanceof Error) {
-        // A client-side or network error occurred. Handle it accordingly.
-        console.log('An error occurred:', err.error.message);
-      } else {
-        // The backend returned an unsuccessful response code.
-        // The response body may contain clues as to what went wrong,
-        console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-      }
-      return false;
-    });
+  constructor(private _httpClient: HttpClient) {
+    this._isLoggedInOrOut$ = new BehaviorSubject(this.isLoggedIn);
   }
 
-  public login(user: User): void {
-    this._httpClient.post<Jwt>(`${environment.appUrl}auth/login`, user).subscribe(data => {
-      this.saveToken(data.token);
-      return true;
-    },
+  private _isLoggedInOrOut$: BehaviorSubject<boolean>;
+  public get onLoggedInOut$(): Observable<boolean> {
+    return this._isLoggedInOrOut$.asObservable();
+  }
 
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-          // A client-side or network error occurred. Handle it accordingly.
-          console.log('An error occurred:', err.error.message);
-        } else {
-          // The backend returned an unsuccessful response code.
-          // The response body may contain clues as to what went wrong,
-          console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-        }
-        return false;
-      });
+  public register(user: User): Observable<User> {
+    return this._httpClient.post<User>(
+      `${environment.appUrl}auth/register`,
+      user
+    );
+  }
+
+  public login(user: User): Observable<Jwt> {
+    return this._httpClient
+      .post<Jwt>(`${environment.appUrl}auth/login`, user)
+      .pipe(
+        tap((data) => {
+          this.saveToken(data.token);
+          this._isLoggedInOrOut$.next(true);
+        })
+      );
   }
 
   public logout(): void {
     this.deleteToken();
+    this._isLoggedInOrOut$.next(false);
   }
 
   public get authToken(): string {

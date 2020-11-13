@@ -9,7 +9,7 @@
                 <mat-label for="email">E-mail address</mat-label>
                 <input matInput type="email" formControlName="email" placeholder="Enter e-mail address" required>
                 <mat-error>
-                    * {{ getErrorEmail() }}
+                     {{ getErrorEmail() }}
                 </mat-error>
             </mat-form-field>
                 <i>We'll never share your e-mail with anyone else.</i>
@@ -17,7 +17,7 @@
                 <mat-label for="password">Password</mat-label>
                 <input matInput type="password" formControlName="password" placeholder="Enter password" required>
                 <mat-error *ngIf="form.controls['password'].invalid && form.controls['password'].touched">
-                    * {{ getErrorPassword() }}
+                     {{ getErrorPassword() }}
                 </mat-error>
             </mat-form-field>
             <br>
