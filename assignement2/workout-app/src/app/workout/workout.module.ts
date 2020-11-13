@@ -25,6 +25,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "../core/interceptors/auth.interceptor";
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import {MatSelectModule} from "@angular/material/select";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 const routes: Routes = [
   {
@@ -56,25 +57,26 @@ const routes: Routes = [
 @NgModule({
   declarations: [WorkoutsListComponent, WorkoutDetailComponent, WorkoutFormComponent, BaseWorkoutsComponent,
     ExerciseFormComponent],
-  imports: [
-    RouterModule.forChild(routes),
-    MatTableModule,
-    MatToolbarModule,
-    MatButtonModule,
-    HttpClientModule,
-    LayoutModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatRippleModule,
-    MatInputModule,
-    MatListModule,
-    FlexLayoutModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MatCardModule,
-    MatSelectModule
-  ],
+    imports: [
+        RouterModule.forChild(routes),
+        MatTableModule,
+        MatToolbarModule,
+        MatButtonModule,
+        HttpClientModule,
+        LayoutModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatRippleModule,
+        MatInputModule,
+        MatListModule,
+        FlexLayoutModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MatCardModule,
+        MatSelectModule,
+        MatPaginatorModule
+    ],
   providers: [
     WorkoutsResolverService,
     WorkoutDetailResolverService,
