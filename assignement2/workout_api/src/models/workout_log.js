@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const workoutLogSchema = new Schema({
     userId: { type: mongoose.ObjectId, required: true, ref: "User" },
-    workoutId: { type: mongoose.ObjectId, required: true, ref: "Workout" },
+    workout: { type: mongoose.ObjectId, required: true, ref: "Workout" },
     timestamp: {type: Date, required: true}
 });
 
