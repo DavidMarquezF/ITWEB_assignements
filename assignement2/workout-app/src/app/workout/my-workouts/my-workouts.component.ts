@@ -16,8 +16,6 @@ export class MyWorkoutsComponent implements OnInit {
 
   ngOnInit(): void {
     this.logs = this._activatedRoute.snapshot.data.workouts;
-    // Filter logs just to show my workouts
-    this.logs = this.logs.filter(log => log.userId === this._authService.currentUserId());
   }
 
 }
