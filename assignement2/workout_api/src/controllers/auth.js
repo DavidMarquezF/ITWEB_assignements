@@ -10,7 +10,7 @@ module.exports.login = async function (req, res, next) {
         }
         const valid = await user.validPassword(req.body.password);
         if (!valid) {
-            return res.status(400).message({ "message": "Incorrect password" });
+            return res.status(400).json({ "message": "Incorrect password" });
         }
         return res.status(200).json({ "token": user.generateJwt() });
     }
