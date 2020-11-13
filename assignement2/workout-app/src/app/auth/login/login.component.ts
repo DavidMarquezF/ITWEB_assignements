@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 //import { User } from 'src/app/core/auth/user.model';
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   //u : User;
 
-  constructor(private authService : AuthService, private router : Router) { }
+  constructor(private authService : AuthService, private router : Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -28,7 +29,9 @@ export class LoginComponent implements OnInit {
     ///this.u = { email : String(this.form.get("email")), password : String(this.form.get("password")) };
     this.authService.login(this.form.value)
     .pipe(catchError(err => {
-      //TODO: Put snackbar with err message
+      let snackBarRef = this.snackBar.open(`Error upon logging in. ${err.error.message}.`, 'Close', {
+        duration: 5000
+      });
       return err;
     }))
     .subscribe(() => this.router.navigate(["/workouts"]));
