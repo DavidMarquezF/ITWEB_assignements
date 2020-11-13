@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, concatMap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 //import { User } from '../../core/auth/user.model';
 
 @Component({
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
   //u : User;
 
-  constructor(private _authService : AuthService, private _router: Router) { }
+
+  constructor(private _authService : AuthService, private _router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -26,17 +28,23 @@ export class RegisterComponent implements OnInit {
 
   register(): void {
     if(this.form.invalid){
-      //TODO: Display a message
+      let snackBarRef = this.snackBar.open('Error upon registration. Check if the form is correct.', 'Close', {
+        duration: 5000
+      });
       return;
     }
     this._authService.register(this.form.value)
     .pipe(catchError(err => {
-      //TODO: Put snackbar with err message register
+      let snackBarRef = this.snackBar.open(`Error upon registration. ${err.error.message}.`, 'Close', {
+        duration: 5000
+      });
       return err;
     }),
     concatMap(() => this._authService.login({email: this.form.value.email, password : this.form.value.password})),
     catchError(err => {
-      //TODO: Put snackbar with err message login
+      let snackBarRef = this.snackBar.open(`Registration successful! Error upon logging in. ${err.error.message}.`, 'Close', {
+        duration: 5000
+      });
       return err;
     }))
     .subscribe(() => this._router.navigate(["/workouts"]));
