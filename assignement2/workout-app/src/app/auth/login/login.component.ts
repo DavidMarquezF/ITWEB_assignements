@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { throwError } from 'rxjs';
 //import { User } from 'src/app/core/auth/user.model';
 
 @Component({
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
       let snackBarRef = this.snackBar.open(`Error upon logging in. ${err.error.message}.`, 'Close', {
         duration: 5000
       });
-      return err;
+      return throwError(err);
     }))
     .subscribe(() => this.router.navigate(["/workouts"]));
   }

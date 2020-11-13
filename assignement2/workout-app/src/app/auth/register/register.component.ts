@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, concatMap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { throwError } from 'rxjs';
 //import { User } from '../../core/auth/user.model';
 
 @Component({
@@ -38,14 +39,14 @@ export class RegisterComponent implements OnInit {
       let snackBarRef = this.snackBar.open(`Error upon registration. ${err.error.message}.`, 'Close', {
         duration: 5000
       });
-      return err;
+      return throwError(err);
     }),
     concatMap(() => this._authService.login({email: this.form.value.email, password : this.form.value.password})),
     catchError(err => {
       let snackBarRef = this.snackBar.open(`Registration successful! Error upon logging in. ${err.error.message}.`, 'Close', {
         duration: 5000
       });
-      return err;
+      return throwError(err);
     }))
     .subscribe(() => this._router.navigate(["/workouts"]));
   }
