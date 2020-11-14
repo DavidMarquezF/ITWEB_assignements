@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Workout } from '../workout.model';
+import { Workout, WorkoutDetail } from '../workout.model';
 import { WorkoutsService } from './workouts.service';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, concatMap } from 'rxjs/operators';
@@ -53,8 +53,8 @@ export class WorkoutsListComponent implements OnInit, AfterViewInit {
         filter((r) => !!r),
         concatMap((s) => this._workoutService.addWorkout(s))
       )
-      .subscribe((id: string) => {
-        this._router.navigate([id], { relativeTo: this._activatedRoute });
+      .subscribe((workout: WorkoutDetail) => {
+        this._router.navigate([workout._id], { relativeTo: this._activatedRoute });
       });
   }
 }

@@ -2,16 +2,17 @@
   <mat-card-header>
     <mat-card-title-group>
     <mat-card-title>{{workout.name}}</mat-card-title>
-    <mat-card-subtitle>{{workout.userId}}</mat-card-subtitle>
     </mat-card-title-group>
     <ng-container *ngIf="isLoggedIn$ | async">
       <div fxFlex></div>
-      <div>
-      <button mat-raised-button color="accent" (click)="logWorkout()">Log Workout</button>
-    </div>
+      <div fxHide fxShow.gt-sm>
+        <button mat-raised-button color="accent" (click)="logWorkout()">Log Workout</button>
+      </div>
     </ng-container>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content fxLayout="column">
+    <button fxHide.gt-sm fxShow mat-raised-button color="accent" (click)="logWorkout()">Log Workout</button>
+
     <table mat-table [dataSource]="workout.exercises"  fxFlex fxFlexFill style="padding-bottom: 24px;">
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>

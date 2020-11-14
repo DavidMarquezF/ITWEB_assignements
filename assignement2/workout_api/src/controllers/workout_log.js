@@ -5,7 +5,7 @@ module.exports.getWorkoutLogs  = async function(req,res,next){
     try{
         const userWorkouts = await WorkoutLog.find({"userId": req.user._id})
         .populate("workout")
-        .sort({date: 1})
+        .sort({timestamp: -1})
         .exec();
         res.send(userWorkouts);    
     }
