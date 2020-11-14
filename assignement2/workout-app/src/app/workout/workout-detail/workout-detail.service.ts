@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Workout} from "../workout.model";
+import {Workout, WorkoutDetail} from "../workout.model";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {Exercise} from "../exercise.model";
@@ -12,15 +12,11 @@ export class WorkoutDetailService {
 
   constructor(private _httpClient: HttpClient, private _router: Router) { }
 
-  addExercise(exercise: Exercise): Observable<any> {
-    console.log("adding new exercise: " + exercise);
-    console.log(this._router.url);
-    console.log(this._router.url.search("/workouts"));
-    return this._httpClient.post<Workout>(`${environment.appUrl}${this._router.url}`, exercise, {});
+  addExercise(exercise: Exercise): Observable<WorkoutDetail> {
+    return this._httpClient.post<WorkoutDetail>(`${environment.appUrl}${this._router.url}`, exercise, {});
   }
 
   logWorkout(log: WorkoutLog): Observable<any> {
-    console.log("new log: " + log);
     return this._httpClient.post<WorkoutLog>(`${environment.appUrl}/user/activity-logs`, log);
   }
 }

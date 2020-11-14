@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     ///this.u = { email : String(this.form.get("email")), password : String(this.form.get("password")) };
     this.authService.login(this.form.value)
     .pipe(catchError(err => {
-      let snackBarRef = this.snackBar.open(`Error upon logging in. ${err.error.message}.`, 'Close', {
+      this.snackBar.open(`Error upon logging in. ${err.error.message}.`, 'Close', {
         duration: 5000
       });
       return throwError(err);

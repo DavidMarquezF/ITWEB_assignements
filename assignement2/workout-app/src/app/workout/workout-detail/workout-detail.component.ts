@@ -8,6 +8,7 @@ import {concatMap, filter, switchMap} from "rxjs/operators";
 import {ExerciseFormComponent} from "../exercise-form/exercise-form.component";
 import {Observable} from "rxjs";
 import {WorkoutLog} from "../workout-log.model";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-workout-detail',
@@ -21,17 +22,18 @@ export class WorkoutDetailComponent implements OnInit {
   workout: WorkoutDetail;
   displayedColumns = ['name', 'desc', 'sets', 'reps'];
   isLoggedIn$: Observable<boolean>;
-  currentUserId$: Observable<string>;
+  currentUserId: string;
 
   constructor(private _authService: AuthService,
               private _activatedRoute: ActivatedRoute,
               private _dialogRef: MatDialog,
-              private _detailService: WorkoutDetailService) { }
+              private _detailService: WorkoutDetailService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.workout = this._activatedRoute.snapshot.data.workout;
     this.isLoggedIn$ = this._authService.onLoggedInOut$;
-    this.currentUserId$ = this._authService.onCurrentUserId$;
+    this.currentUserId = this._authService.currentUserId;
   }
 
   addExercise() {
@@ -45,11 +47,8 @@ export class WorkoutDetailComponent implements OnInit {
       .subscribe(res => this.workout = {...res});
   }
 
-  logWorkout() {
-    this._authService.onCurrentUserId$
-      .pipe(switchMap(id => {
-        let log: WorkoutLog = {userId: id, workoutId: this.workout._id, timestamp: new Date()};
-        return this._detailService.logWorkout(log);
-      })).subscribe();
+  logWorkout(): void {
+    let log: WorkoutLog = {userId: this._authService.currentUserId, workoutId: this.workout._id, timestamp: new Date()};
+    this._detailService.logWorkout(log).subscribe(()=>this.snackBar.open("Workout logged successfully!", null, {duration: 1000}));    
   }
 }

@@ -2,14 +2,22 @@ mat-card {
     text-align: center;
 }
 
-#content {
-    min-height: 400px;
+
+.login-container{
+    max-width: 400px;
+    width: 400px;
+    margin-top: 48px;
+    @media screen and (max-width: 400px){
+        width: 100%;
+    }
 }
 
-mat-label {
-    margin-top: 40px;
+#content{
+    padding: 16px;
 }
+
+
 
 button {
-    margin-top: 40px;
+    margin-top: 24px;
 }

@@ -20,7 +20,9 @@ export class WorkoutsListComponent implements OnInit, AfterViewInit {
   workouts: Workout[];
   workoutDataSource: MatTableDataSource<Workout>;
   displayedColumns: string[] = ['name', 'description'];
-  currentUserId$: Observable<string>;
+  currentUserId: string;
+  isLoggedIn$: Observable<boolean>;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
@@ -38,7 +40,9 @@ export class WorkoutsListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.workouts = this._activatedRoute.snapshot.data.workouts;
     this.workoutDataSource = new MatTableDataSource<Workout>(this.workouts);
-    this.currentUserId$ = this._authService.onCurrentUserId$;
+    this.currentUserId = this._authService.currentUserId;
+    this.isLoggedIn$ = this._authService.onLoggedInOut$;
+
   }
 
   addWorkout(): void {
