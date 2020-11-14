@@ -3,12 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Workout, WorkoutDetail } from '../workout.model';
 import { WorkoutsService } from './workouts.service';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, concatMap } from 'rxjs/operators';
+import { filter, concatMap, catchError } from 'rxjs/operators';
 import { WorkoutFormComponent } from '../workout-form/workout-form.component';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
-import {Observable} from "rxjs";
+import {Observable, throwError} from "rxjs";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-workouts-list',
@@ -34,6 +35,7 @@ export class WorkoutsListComponent implements OnInit, AfterViewInit {
     private _activatedRoute: ActivatedRoute,
     private _authService: AuthService,
     private _dialogRef: MatDialog,
+    private _snackBar: MatSnackBar,
     private _router: Router
   ) {}
 
@@ -51,7 +53,13 @@ export class WorkoutsListComponent implements OnInit, AfterViewInit {
       .afterClosed()
       .pipe(
         filter((r) => !!r),
-        concatMap((s) => this._workoutService.addWorkout(s))
+        concatMap((s) => this._workoutService.addWorkout(s)),
+        catchError(err =>{
+          this._snackBar.open("Error creating workout", null, {
+            duration: 1000
+          });
+          return throwError(err);
+        })
       )
       .subscribe((workout: WorkoutDetail) => {
         this._router.navigate([workout._id], { relativeTo: this._activatedRoute });
