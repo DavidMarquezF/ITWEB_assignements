@@ -11,7 +11,7 @@
     </ng-container>
   </mat-card-header>
   <mat-card-content fxLayout="column">
-    <button fxHide.gt-sm fxShow mat-raised-button color="accent" (click)="logWorkout()">Log Workout</button>
+    <button *ngIf="isLoggedIn$ | async" fxHide.gt-sm fxShow mat-raised-button color="accent" (click)="logWorkout()">Log Workout</button>
 
     <table mat-table [dataSource]="workout.exercises"  fxFlex fxFlexFill style="padding-bottom: 24px;">
       <ng-container matColumnDef="name">
