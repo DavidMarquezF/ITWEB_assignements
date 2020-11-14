@@ -6,28 +6,28 @@
   <div class="logged-out" *ngIf="!(isLoggedIn$ | async)">
     <a mat-button routerLink="/auth/register">
       <mat-icon>person_add</mat-icon>
-      Register
+      <label for="register">Register</label>
     </a>
     <a mat-button routerLink="/auth/login">
       <mat-icon>login</mat-icon>
-      Login
+      <label for="login">Login</label>
     </a>
   </div>
   <a mat-button routerLink="/workouts">
     <mat-icon>emoji_events</mat-icon>
-    Workouts
+    <label for="workouts">Workouts</label>
   </a>
   <ng-container *ngIf="isLoggedIn$ | async">
     <div class="logged-in">
       <a mat-button routerLink="/workouts/my-workouts">
         <mat-icon>favorite</mat-icon>
-        Logged Workouts
+        <label for="logged_workouts">Logged Workouts</label>
       </a>
     </div>
     <div class="logged-in">
       <a mat-button routerLink="/" (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
-        Logout
+        <label for="logout">Logout</label>
       </a>
     </div>
   </ng-container>
