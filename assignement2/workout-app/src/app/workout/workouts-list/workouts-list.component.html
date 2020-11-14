@@ -4,7 +4,7 @@
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
         <mat-cell *matCellDef="let workout">
-          <mat-icon *ngIf="workout.userId === this._authService.currentUserId()">person</mat-icon>{{workout.name}}
+          <mat-icon *ngIf="workout.userId === (currentUserId$ | async)">person</mat-icon>&nbsp;{{workout.name}}
         </mat-cell>
       </ng-container>
 

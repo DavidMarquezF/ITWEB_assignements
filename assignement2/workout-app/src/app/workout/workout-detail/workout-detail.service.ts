@@ -20,6 +20,7 @@ export class WorkoutDetailService {
   }
 
   logWorkout(log: WorkoutLog): Observable<any> {
+    console.log("new log: " + log);
     return this._httpClient.post<WorkoutLog>(`${environment.appUrl}/user/activity-logs`, log);
   }
 }

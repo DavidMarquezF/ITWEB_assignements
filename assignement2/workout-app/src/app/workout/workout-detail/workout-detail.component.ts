@@ -4,9 +4,10 @@ import {ActivatedRoute} from "@angular/router";
 import {WorkoutDetail} from "../workout.model";
 import {AuthService} from "../../core/auth/auth.service";
 import {MatDialog} from "@angular/material/dialog";
-import {concatMap, filter} from "rxjs/operators";
+import {concatMap, filter, switchMap} from "rxjs/operators";
 import {ExerciseFormComponent} from "../exercise-form/exercise-form.component";
 import {Observable} from "rxjs";
+import {WorkoutLog} from "../workout-log.model";
 
 @Component({
   selector: 'app-workout-detail',
@@ -20,6 +21,7 @@ export class WorkoutDetailComponent implements OnInit {
   workout: WorkoutDetail;
   displayedColumns = ['name', 'desc', 'sets', 'reps'];
   isLoggedIn$: Observable<boolean>;
+  currentUserId$: Observable<string>;
 
   constructor(private _authService: AuthService,
               private _activatedRoute: ActivatedRoute,
@@ -29,10 +31,7 @@ export class WorkoutDetailComponent implements OnInit {
   ngOnInit(): void {
     this.workout = this._activatedRoute.snapshot.data.workout;
     this.isLoggedIn$ = this._authService.onLoggedInOut$;
-  }
-
-  checkUserPermissions(): boolean {
-    return this.workout.userId === this._authService.currentUserId();
+    this.currentUserId$ = this._authService.onCurrentUserId$;
   }
 
   addExercise() {
@@ -47,11 +46,10 @@ export class WorkoutDetailComponent implements OnInit {
   }
 
   logWorkout() {
-    this._detailService.logWorkout({
-      userId: this._authService.currentUserId(),
-      workoutId: this.workout._id,
-      timestamp: new Date()
-    })
-      .subscribe();
+    this._authService.onCurrentUserId$
+      .pipe(switchMap(id => {
+        let log: WorkoutLog = {userId: id, workoutId: this.workout._id, timestamp: new Date()};
+        return this._detailService.logWorkout(log);
+      })).subscribe();
   }
 }

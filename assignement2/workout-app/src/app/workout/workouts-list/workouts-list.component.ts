@@ -8,6 +8,7 @@ import { WorkoutFormComponent } from '../workout-form/workout-form.component';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-workouts-list',
@@ -19,6 +20,7 @@ export class WorkoutsListComponent implements OnInit, AfterViewInit {
   workouts: Workout[];
   workoutDataSource: MatTableDataSource<Workout>;
   displayedColumns: string[] = ['name', 'description'];
+  currentUserId$: Observable<string>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngAfterViewInit() {
@@ -36,6 +38,7 @@ export class WorkoutsListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.workouts = this._activatedRoute.snapshot.data.workouts;
     this.workoutDataSource = new MatTableDataSource<Workout>(this.workouts);
+    this.currentUserId$ = this._authService.onCurrentUserId$;
   }
 
   addWorkout(): void {
