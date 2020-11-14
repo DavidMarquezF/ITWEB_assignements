@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ng build --prod",
-    "publishheroku": "cd ../../ && git subtree push --prefix assignement2/workout-app  heroku-web-app maste || true"
+    "publishheroku": "cd ../../ && git subtree push --prefix assignement2/workout-app  heroku-web-app master || true"
   },
   "private": true,
   "dependencies": {
