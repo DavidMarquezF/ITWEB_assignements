@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkoutDetailService } from './workout-detail.service';
 import {ActivatedRoute} from "@angular/router";
-import {Workout, WorkoutDetail} from "../workout.model";
+import {WorkoutDetail} from "../workout.model";
 import {AuthService} from "../../core/auth/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {concatMap, filter} from "rxjs/operators";
 import {ExerciseFormComponent} from "../exercise-form/exercise-form.component";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-workout-detail',
@@ -17,8 +18,8 @@ import {ExerciseFormComponent} from "../exercise-form/exercise-form.component";
 })
 export class WorkoutDetailComponent implements OnInit {
   workout: WorkoutDetail;
-  // exercises: Exercise[];
   displayedColumns = ['name', 'desc', 'sets', 'reps'];
+  isLoggedIn$: Observable<boolean>;
 
   constructor(private _authService: AuthService,
               private _activatedRoute: ActivatedRoute,
@@ -27,7 +28,7 @@ export class WorkoutDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.workout = this._activatedRoute.snapshot.data.workout;
-    // this.exercises = this.workout.exercises;
+    this.isLoggedIn$ = this._authService.onLoggedInOut$;
   }
 
   checkUserPermissions(): boolean {
