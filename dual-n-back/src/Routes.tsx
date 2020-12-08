@@ -12,9 +12,6 @@ export const Routes = ()=> (
             <Switch>
                 <Redirect path="/" exact to="/play"/>
                 <Route path="/play" component={PlayPage} />
-                <Route render={() => <div>Not found</div>}/>
-            </Switch>
-            <Switch>
                 <Route path="/scores" component={ScoresPage} />
                 <Route render={() => <div>Not found</div>}/>
             </Switch>
