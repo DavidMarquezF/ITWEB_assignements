@@ -1,4 +1,4 @@
-import { ListAlt, ShowChart, Sports, SportsEsports } from "@material-ui/icons";
+import { ListAlt, ShowChart, Sports, SportsEsports, Lock } from "@material-ui/icons";
 import { ReactComponentElement } from "react";
 
 export interface NavigationItem{
@@ -22,5 +22,10 @@ export const navigation: NavigationItem[] = [
         name: "My progress",
         url: "my-progress",
         icon: ShowChart
+    },
+    {
+        name: "Login",
+        url: "login",
+        icon: Lock
     }
 ]
