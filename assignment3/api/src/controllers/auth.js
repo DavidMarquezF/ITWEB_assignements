@@ -3,7 +3,7 @@ const User = require("../models/user");
 module.exports.login = async function (req, res, next) {
     let user;
     try {
-        user = await User.findOne({ email: req.body.email }).exec();
+        user = await User.findOne({ name: req.body.name }).exec();
         if (!user) {
             return res.status(400).json({ 'message': "User does not exist!" });
         }
@@ -18,15 +18,15 @@ module.exports.login = async function (req, res, next) {
 }
 
 module.exports.register = async function (req, res, next) {
-    if (!req.body.email || !req.body.password) {
+    if (!req.body.name || !req.body.password) {
         return res.status(400)
             .json({ 'message': "Required fields!" })
     }
     try {
-        if (await User.exists({ email: req.body.email })) {
-            return res.status(400).json({ 'message': "Email already exists!" })
+        if (await User.exists({ name: req.body.name })) {
+            return res.status(400).json({ 'message': "User with this name already exists!" })
         }
-        const user = new User({ email: req.body.email });
+        const user = new User({ name: req.body.name });
         const passwordPlain = req.body.password;
         await user.setPassword(passwordPlain);
         await user.save();

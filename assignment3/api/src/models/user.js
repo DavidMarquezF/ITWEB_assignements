@@ -7,7 +7,7 @@ const saltRounds = 10;
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    email: { type: String, required: true, unique: true },
+    name: { type: String, required: true, unique: true },
     hash: { type: String, required: true }
 });
 
@@ -24,7 +24,7 @@ userSchema.methods.generateJwt = function() {
     expiry.setHours(expiry.getHours() + 1); // JWT expires in 1 hour
     return jwt.sign({
         _id: this._id,
-        email: this.email,
+        name: this.name,
         exp: parseInt(expiry.getTime() / 1000), // as Unix time in seconds
     }, process.env.JWT_SECRET); // DO NOT KEEP YOUR SECRET IN THE CODE!};
 }
