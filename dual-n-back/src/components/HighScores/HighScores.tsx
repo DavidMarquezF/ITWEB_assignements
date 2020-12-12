@@ -1,6 +1,7 @@
 import { Avatar, createStyles, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, makeStyles, Paper, Typography } from "@material-ui/core";
 import { EmojiEvents } from "@material-ui/icons";
 import React from "react";
+import FlipMove from "react-flip-move";
 
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -30,6 +31,7 @@ export const HighScores: React.FC<{ scores: Score[] }> = ({ scores }) => {
                 High Scores
             </Typography>
             <List>
+                <FlipMove>
                 {scores.map(({ uid, username, score }, i) => (
                     <ListItem key={uid}>
                         {
@@ -53,7 +55,7 @@ export const HighScores: React.FC<{ scores: Score[] }> = ({ scores }) => {
 
                     </ListItem>
                 ))}
-
+</FlipMove>
             </List>
         </Paper>
 

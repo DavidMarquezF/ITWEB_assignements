@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core"
 import React from "react"
-import { INVALID_SCORE, MIN_AVG, MOVES_PER_LEVEL } from "../../pages/PlayPage/PlayPage";
+import { INVALID_SCORE, MOVES_PER_LEVEL, MIN_AVG } from "../BoardEngine";
 
 export interface StartGameDialogProps {
     open: boolean;

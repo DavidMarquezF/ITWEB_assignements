@@ -1,4 +1,4 @@
-import { AppBar, createStyles, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Toolbar, Typography, useTheme } from "@material-ui/core";
+import { AppBar, Button, createStyles, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Toolbar, Typography, useTheme } from "@material-ui/core";
 import { Inbox, Mail, Menu } from "@material-ui/icons";
 import React, { ReactChild, ReactChildren } from "react";
 import { Link } from "react-router-dom";
@@ -94,9 +94,10 @@ export const Layout: React.FC<WithChildren> = (props) => {
                     >
                         <Menu />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6" noWrap style={{flexGrow: 1}}>
                         Dual-N-Back
                     </Typography>
+                    <Button color="inherit">Logout</Button>
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
