@@ -22,10 +22,5 @@ export const navigation: NavigationItem[] = [
         name: "My progress",
         url: "my-progress",
         icon: ShowChart
-    },
-    {
-        name: "Login",
-        url: "login",
-        icon: Lock
     }
 ]

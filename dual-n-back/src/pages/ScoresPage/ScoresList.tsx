@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+//import axios from "axios";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
@@ -10,7 +10,7 @@ export class ScoresList extends React.Component {
     }
 
     componentDidMount() {
-    axios.get(
+    /*axios.get(
       "https://localhost:3000/api/scores"
     ).then(response => {
         console.log(response.data);
@@ -20,7 +20,7 @@ export class ScoresList extends React.Component {
         console.log(response.config);
     }).catch(function(error) {
         console.log(error)
-    });
+    });*/
     }
 
     render() {

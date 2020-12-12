@@ -42,8 +42,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         content: {
             flexGrow: 1,
-            flexDirection:"column",
-            display:"flex",
+            flexDirection: "column",
+            display: "flex",
             background: "#f5f5f5",
             padding: theme.spacing(3),
         },
@@ -69,75 +69,80 @@ export const Layout: React.FC<WithChildren<RouteComponentProps>> = (props) => {
             <div className={classes.toolbar} />
             <Divider />
             <List>
-                {navigation.map(({ name, url, icon }) => 
-                    (
-                        <ListItem button key={name} component={Link} to={url}>
-                            <ListItemIcon>{React.createElement(icon, {key: name})}</ListItemIcon>
-                            <ListItemText primary={name} />
-                        </ListItem>
-                    )
+                {navigation.map(({ name, url, icon }) =>
+                (
+                    <ListItem button key={name} component={Link} to={url}>
+                        <ListItemIcon>{React.createElement(icon, { key: name })}</ListItemIcon>
+                        <ListItemText primary={name} />
+                    </ListItem>
+                )
                 )}
             </List>
             <Divider />
         </div>
     );
 
-    
+
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        className={classes.menuButton}
-                    >
-                        <Menu />
-                    </IconButton>
-                    <Typography variant="h6" noWrap style={{flexGrow: 1}}>
-                        Dual-N-Back
-                    </Typography>
-                    <Button color="inherit" onClick={logout}>Logout</Button>
-                </Toolbar>
-            </AppBar>
-            <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden mdUp implementation="css">
-                    <Drawer
-                        variant="temporary"
-                        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden smDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-            </nav>
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                {props.children}
-            </main>
+            { !!authService.currentUserValue ?
+                <>
+                    <AppBar position="fixed" className={classes.appBar}>
+                        <Toolbar>
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                edge="start"
+                                onClick={handleDrawerToggle}
+                                className={classes.menuButton}
+                            >
+                                <Menu />
+                            </IconButton>
+                            <Typography variant="h6" noWrap style={{ flexGrow: 1 }}>
+                                Dual-N-Back
+                </Typography>
+                            <Button color="inherit" onClick={logout}>Logout</Button>
+                        </Toolbar>
+                    </AppBar>
+                    <nav className={classes.drawer} aria-label="mailbox folders">
+                        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                        <Hidden mdUp implementation="css">
+                            <Drawer
+                                variant="temporary"
+                                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                                open={mobileOpen}
+                                onClose={handleDrawerToggle}
+                                classes={{
+                                    paper: classes.drawerPaper,
+                                }}
+                                ModalProps={{
+                                    keepMounted: true, // Better open performance on mobile.
+                                }}
+                            >
+                                {drawer}
+                            </Drawer>
+                        </Hidden>
+                        <Hidden smDown implementation="css">
+                            <Drawer
+                                classes={{
+                                    paper: classes.drawerPaper,
+                                }}
+                                variant="permanent"
+                                open
+                            >
+                                {drawer}
+                            </Drawer>
+                        </Hidden>
+                    </nav>
+                    <main className={classes.content}>
+                        <div className={classes.toolbar} />
+                        {props.children}
+                    </main>
+                </> :
+                props.children}
+
         </div>
     )
 };
