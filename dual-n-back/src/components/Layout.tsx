@@ -1,8 +1,9 @@
 import { AppBar, Button, createStyles, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Theme, Toolbar, Typography, useTheme } from "@material-ui/core";
 import { Inbox, Mail, Menu } from "@material-ui/icons";
 import React, { ReactChild, ReactChildren } from "react";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import { navigation } from "../navigation";
+import { authService } from "../services/authService";
 import { WithChildren } from "../utils/WithChildren";
 
 
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 // Based on https://material-ui.com/components/drawers/
-export const Layout: React.FC<WithChildren> = (props) => {
+export const Layout: React.FC<WithChildren<RouteComponentProps>> = (props) => {
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -59,7 +60,10 @@ export const Layout: React.FC<WithChildren> = (props) => {
         setMobileOpen(!mobileOpen);
     };
 
-    
+    const logout = () => {
+        authService.logout();
+        props.history.push("/login");
+    }
     const drawer = (
         <div>
             <div className={classes.toolbar} />
@@ -97,7 +101,7 @@ export const Layout: React.FC<WithChildren> = (props) => {
                     <Typography variant="h6" noWrap style={{flexGrow: 1}}>
                         Dual-N-Back
                     </Typography>
-                    <Button color="inherit">Logout</Button>
+                    <Button color="inherit" onClick={logout}>Logout</Button>
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
