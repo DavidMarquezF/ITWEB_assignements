@@ -1,86 +1,104 @@
-import React from "react";
-import LooksOneIcon from '@material-ui/icons/LooksOne';
-import LooksTwoIcon from '@material-ui/icons/LooksTwo';
-import Looks3Icon from '@material-ui/icons/Looks3';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-//import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import React, { useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { typography } from '@material-ui/system';
 import { Paper } from "@material-ui/core";
-import {ScoresList } from "./ScoresList";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
+import { scoreService } from "../../services/ScoreService";
 
+interface ScoreItem {
+    username: string;
+    value: number;
+    timestamp: Date;
+}
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        maxWidth: 1440,
-        flexGrow: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
+const useStyles = makeStyles({
+    table: {
+      minWidth: 650,
     },
-    headline: {
-        fontSize: 36,
-        textAlign: "center"
-    },
-    top3: {
-        fontSize: 28,
-        fontWeight: "bold",
-    },
-    one: {
-        color: 'gold',
-        marginRight: 20,
-    },
-    two: {
-        color: 'silver',
-        marginRight: 20,
-    },
-    three: {
-        color: 'brown',
-        marginRight: 20,
-    },
-    scoresList: {
-        columnCount: 5,
-        [theme.breakpoints.down('md')]: {
-            columnCount: 4
-        },
-        [theme.breakpoints.down('sm')]: {
-            columnCount: 3
-        },
-        [theme.breakpoints.down('xs')]: {
-            columnCount: 2
-        }
-    },
-    highScoreContainer: {
-        padding: theme.spacing(3),
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column"
-    },
-    scoreListContainer: {
-        padding: theme.spacing(3),
-        marginTop: theme.spacing(3)
-    }
-}));
+});
 
+// inspired by https://material-ui.com/components/tables/ and
+// https://www.pluralsight.com/guides/access-data-from-an-external-api-into-a-react-component
+// and https://stackoverflow.com/questions/64334134/material-ui-react-table-pagination
 export const ScoresPage = () => {
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [scores, setScores] = React.useState<[ScoreItem]>();
+    const [total, setTotal] = React.useState(0);
 
     const classes = useStyles();
 
+    useEffect(() => {
+        getScores();
+    }, []);
+
+    const getScores = () => {
+        scoreService.getScores().then(async (res) => {
+            if (res?.status === 200) {
+                const data = await res?.json();
+                setScores(data);
+                setTotal(data.length);
+            }
+        });
+    };
+
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+      };
+    
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, total - page * rowsPerPage);
+
     return (
-        <div className={classes.root}>
-            <Paper className={classes.highScoreContainer}>
-            <h1 className={classes.headline}>High scores</h1>
-        
-            <List className={classes.top3} component="ol" aria-label="top3">
-                <ListItem><LooksOneIcon className={classes.one} /> John 30600</ListItem>
-                <ListItem><LooksTwoIcon className={classes.two} /> Alan 29900</ListItem>
-                <ListItem><Looks3Icon className={classes.three} /> Jennifer 29000</ListItem>
-            </List>    
-            </Paper>
-            
-            <Paper className={classes.scoreListContainer}>
-            <ScoresList >
-            </ScoresList>
-            </Paper>  
+        <div>
+            <h1>High scores</h1>
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Username</TableCell>
+                            <TableCell align="right">Score</TableCell>
+                            <TableCell align="right">Timestamp</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {scores?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            .map((row) => (
+                                <TableRow key={`${row.username}_${row.timestamp}`}>
+                                    <TableCell component="th" scope="row">
+                                        {row.username}
+                                    </TableCell>
+                                    <TableCell align="right">{row.value}</TableCell>
+                                    <TableCell align="right">{row.timestamp.toLocaleString()}</TableCell>
+                                </TableRow>
+                        ))}
+                        { emptyRows > 0 && (
+                            <TableRow style={{ height: 53 * emptyRows }}>
+                                <TableCell colSpan={6} />
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[5, 10]}
+                component="div"
+                count={total}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
         </div>
-    )
+        
+      );
 }
