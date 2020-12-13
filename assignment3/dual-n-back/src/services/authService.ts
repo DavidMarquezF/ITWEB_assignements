@@ -28,7 +28,7 @@ function login(name:string, password:string): Promise<UserModel> {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, password })
     };
-
+console.log(process.env)
     return fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
