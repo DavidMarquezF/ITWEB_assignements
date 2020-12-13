@@ -34,17 +34,20 @@
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4",
+    "typescript": "^4.1.2",
+    "express": "^4.17.1",
     "react-scripts": "4.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
     "start:prod": "env-cmd -f .env.production react-scripts start",
     "build:prod": "env-cmd -f .env.production react-scripts build",
     "servePWA": "npm run build:prod && http-server ./build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publishheroku": "cd ../../ && git subtree push --prefix assignment3/dual-n-back heroku-dual-n-back-app master || true"
+    "postinstall": "react-scripts build",
+    "publishheroku": "cd ../../ && git subtree push --prefix assignment3/dual-n-back heroku-itweb-g11-dual-n-back-app master || true"
   },
   "eslintConfig": {
     "extends": [
@@ -66,7 +69,10 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.6",
-    "http-server": "^0.12.3",
-    "typescript": "^4.1.2"
+    "http-server": "^0.12.3"
+  },
+  "engines": {
+    "node": "10.19.0",
+    "npm": "6.14.4"
   }
 }
