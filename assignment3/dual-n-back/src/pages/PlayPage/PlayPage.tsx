@@ -53,6 +53,7 @@ export const PlayPage = () => {
     const lasttext: TextSound = !!lastItem?.sound || lastItem?.sound === 0 ?
         LETTERS_N_BACK.charAt(lastItem.sound).toString() as TextSound : null;
 
+        console.log(process.env.HIGH_WEBSOCKET )
     const [lastScores, sendScore] = useJSONWebSocket<Score[]>(process.env.HIGH_WEBSOCKET || "ws://localhost:3000");
 
     const scores: Score[] = [

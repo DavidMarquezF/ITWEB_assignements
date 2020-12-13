@@ -40,6 +40,7 @@
   },
   "scripts": {
     "start": "node server.js",
+    "startNormal": "react-scripts start",
     "start:prod": "env-cmd -f .env.production react-scripts start",
     "build:prod": "env-cmd -f .env.production react-scripts build",
     "servePWA": "npm run build:prod && http-server ./build",
