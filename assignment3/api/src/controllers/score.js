@@ -2,8 +2,7 @@ const Score = require('../models/score');
 const ObjectId = require('mongoose').Types.ObjectId;
 const { BehaviorSubject } = require('rxjs');
 
-var lastTopN = [];
-var lastTopNSubject = new BehaviorSubject();
+const lastTopNSubject = new BehaviorSubject([]);
 
 module.exports.getScores = async function(req, res, next) {
     try {
@@ -15,12 +14,12 @@ module.exports.getScores = async function(req, res, next) {
 }
 
 module.exports.getTopNScores = async function(n) {
-    if (lastTopN.length == 0) {
+    if (lastTopNSubject.value.length == 0) {
         const scores = await Score.find({}).sort({ value: 'desc'}).exec();
-        lastTopN = scores.slice(0, n);
+        var lastTopN = scores.slice(0, n);
         lastTopNSubject.next(lastTopN);
     }
-    return lastTopNSubject;
+    return lastTopNSubject.asObservable();
 }
 
 module.exports.createScore = async function(req, res, next) {
@@ -42,11 +41,12 @@ module.exports.createScore = async function(req, res, next) {
                 value: req.body.value
             });
             await score.save();
+            var lastTopN = lastTopNSubject.value;
             if (score.value > lastTopN[lastTopN.length-1].value) {
                 console.log("bigger score");
                 lastTopN.push(score);
                 lastTopN.sort((x, y) => y.value - x.value);
-                lastTopN = lastTopN.slice(0, 10)
+                lastTopN = lastTopN.slice(0, 10);
                 console.log(lastTopN);
                 lastTopNSubject.next(lastTopN);
             } else {
