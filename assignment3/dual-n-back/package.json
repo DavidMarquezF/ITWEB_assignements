@@ -44,7 +44,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publishheroku": "cd ../../ && git subtree push --prefix assignment3/dual-n-back heroku-dual-n-back-app master || true" 
+    "publishheroku": "cd ../../ && git subtree push --prefix assignment3/dual-n-back heroku-dual-n-back-app master || true"
   },
   "eslintConfig": {
     "extends": [
