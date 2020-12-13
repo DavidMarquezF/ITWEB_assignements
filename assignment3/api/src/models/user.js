@@ -21,7 +21,7 @@ userSchema.methods.validPassword = async function(password) {
 
 userSchema.methods.generateJwt = function() {
     let expiry = new Date();
-    expiry.setHours(expiry.getHours() + 1); // JWT expires in 1 hour
+    expiry.setHours(expiry.getHours() + 6); // JWT expires in 6 hours
     return jwt.sign({
         _id: this._id,
         name: this.name,

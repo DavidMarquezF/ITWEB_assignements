@@ -11,7 +11,6 @@ module.exports.start = async function(server) {
     apiResult.subscribe({
         next: (value) => { 
             console.log('Server: ' + value);
-            top10 = value;
             wss.clients.forEach((client) => {
                 client.send(JSON.stringify(value));
             });
