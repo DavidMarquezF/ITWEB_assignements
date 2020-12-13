@@ -74,8 +74,6 @@ export const PlayPage = () => {
 
     return (
         <div className={classes.root} id="main-game-container">
-            {/* {/* <button onClick={() => scoreService.postScore(5000)}>Default</button> */}
-            <button onClick={() => console.log(scoreService.getScores())}>Default</button>
             <TextSound text={lasttext} id={state.round} />
             <div className={classes.gameContainer}>
                 <Typography variant="h2" className={classes.title}>
