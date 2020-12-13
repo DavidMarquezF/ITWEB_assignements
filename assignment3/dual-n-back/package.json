@@ -22,7 +22,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "rxjs": "^6.6.3",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "@types/react-router-dom": "^5.1.6",
+    "typescript": "^4.1.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -31,7 +33,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publishheroku": "cd ../../ && git subtree push --prefix assignment3/dual-n-back heroku-dual-n-back-app master || true" 
+    "publishheroku": "cd ../../ && git subtree push --prefix assignment3/dual-n-back heroku-dual-n-back-app master || true"
   },
   "eslintConfig": {
     "extends": [
@@ -50,9 +52,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/react-router-dom": "^5.1.6",
-    "typescript": "^4.1.2"
   }
 }
