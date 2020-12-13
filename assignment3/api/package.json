@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "publishheroku": "cd ../../ && git subtree push --prefix assignment3/api heroku-dual-n-back-api master || true" 
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -17,6 +18,7 @@
     "mongoose": "^5.10.16",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.6",
+    "rxjs": "^6.6.3",
     "ws": "^7.4.0"
   }
 }

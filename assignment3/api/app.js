@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const { Server } = require('ws');
+const websocketController = require('./src/controllers/websocket');
 
 const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
@@ -53,18 +53,6 @@ const server = app
   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-// Create Websocket server
-const wss = new Server({ server });
-
-wss.on('connection', (ws) => {
-  console.log('Client connected');
-  ws.on('close', () => console.log('Client disconnected'));
-});
-
-setInterval(() => {
-  wss.clients.forEach((client) => {
-    client.send(new Date().toTimeString());
-  });
-}, 1000);
+websocketController.start(server);
 
 module.exports = app;

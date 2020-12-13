@@ -1,3 +1,5 @@
+import { scoreService } from "../services/ScoreService";
+
 export interface FlashModel {
   position: number;
   sound: number;
@@ -40,6 +42,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
                 waitForNextLevel: true
             }
         case "stopGame":
+            console.log("the game has finished");
+            // Send a score to the db
+            scoreService.postScore(state.score);
             return {
                 ...state,
                 running: false,

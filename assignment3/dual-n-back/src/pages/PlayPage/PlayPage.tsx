@@ -8,6 +8,7 @@ import { NextLevelDialog } from "../../components/NextLevelDialog/NextLevelDialo
 import { StartGameDialog } from "../../components/StartGameDialog/StartGameDialog";
 import { TextSound } from "../../components/TextSound";
 import { useJSONWebSocket } from "../../hooks/useWebSocket";
+import { scoreService } from "../../services/ScoreService";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -52,7 +53,7 @@ export const PlayPage = () => {
     const lasttext: TextSound = !!lastItem?.sound || lastItem?.sound === 0 ?
         LETTERS_N_BACK.charAt(lastItem.sound).toString() as TextSound : null;
 
-    const [lastScores, sendScore] = useJSONWebSocket<Score[]>("ws://localhost:3001");
+    const [lastScores, sendScore] = useJSONWebSocket<Score[]>("ws://localhost:3000");
 
     const scores: Score[] = [
         { username: "David", score: 10, uid: "1" },
