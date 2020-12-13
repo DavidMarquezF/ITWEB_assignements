@@ -18,9 +18,4 @@ export const navigation: NavigationItem[] = [
         url: "scores",
         icon: ListAlt
     },
-    {
-        name: "My progress",
-        url: "my-progress",
-        icon: ShowChart
-    }
 ]
