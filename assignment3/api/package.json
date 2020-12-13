@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "publishheroku": "cd ../../ && git subtree push --prefix assignment3/api heroku-dual-n-back-api master || true" 
+    "start": "node ./bin/www",
+    "publishheroku": "cd ../../ && git subtree push --prefix assignment3/api heroku-itweb-g11-dual-n-back-api master || true" 
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
