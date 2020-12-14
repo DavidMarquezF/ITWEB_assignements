@@ -1,3 +1,4 @@
+import { handleResponse } from '../utils/authHandleResponse';
 import { authService } from './authService';
 
 export const scoreService = {
@@ -20,7 +21,7 @@ function postScore(value: number) {
         body: JSON.stringify({ timestamp: new Date(), value })
     };
 
-    return fetch(`${process.env.REACT_APP_API_BASE_URL}/scores`, requestOptions);
+    return fetch(`${process.env.REACT_APP_API_BASE_URL}/scores`, requestOptions).then(handleResponse);
 }
 
 function getScores() {
@@ -31,5 +32,5 @@ function getScores() {
         }
     };
 
-    return fetch(`${process.env.REACT_APP_API_BASE_URL}/scores`, requestOptions);
+    return fetch(`${process.env.REACT_APP_API_BASE_URL}/scores`, requestOptions).then(handleResponse);
 }
