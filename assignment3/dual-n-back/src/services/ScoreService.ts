@@ -21,7 +21,7 @@ function postScore(value: number) {
         body: JSON.stringify({ timestamp: new Date(), value })
     };
 
-    return fetch(`${process.env.REACT_APP_API_BASE_URL}/scores`, requestOptions).then(handleResponse);
+    return fetch(`${process.env.REACT_APP_API_BASE_URL}/scores`, requestOptions);
 }
 
 function getScores() {
@@ -32,5 +32,5 @@ function getScores() {
         }
     };
 
-    return fetch(`${process.env.REACT_APP_API_BASE_URL}/scores`, requestOptions).then(handleResponse);
+    return fetch(`${process.env.REACT_APP_API_BASE_URL}/scores`, requestOptions);
 }
